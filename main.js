@@ -13,9 +13,22 @@ let service1
 let service2
 
 
+// const isNumber = function(num) {
+//   str = num.trim()
+//   return !isNaN(parseFloat(str)) && isFinite(str) || str !== null
+// }
+
 const isNumber = function(num) {
-  return !isNaN(parseFloat(num)) && isFinite(num)
-}
+    if (num === null ) {
+    num 
+  } else if (num === '') {
+    num 
+  } else if (num.match(/[А-яЁё]/)) {
+    num
+  }
+  
+  return !isNaN(parseFloat(num)) && isFinite(num) 
+}  
 
 
 const makeNumber = function (i) {
@@ -30,12 +43,10 @@ const makeNumber = function (i) {
 const asking = function () {
   title = prompt('Как называется Ваш проект?', 'Калькулятор вёрстки')
   screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные').split(' ')
-    // screenPrice = '1000'
-
   do {
     screenPrice = prompt('Сколько будет стоить данная работа?', 10000)
   }  while (!isNumber(screenPrice))
-
+  console.log(screenPrice)
   // while (!isNumber(screenPrice)) (
   //   screenPrice =  prompt('Сколько будет стоить данная работа?')
   // )
