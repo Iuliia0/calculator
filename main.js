@@ -12,33 +12,9 @@ let servicePercentPrice
 let service1
 let service2
 
-
-// const isNumber = function(num) {
-//   str = num.trim()
-//   return !isNaN(parseFloat(str)) && isFinite(str) || str !== null
-// }
-
 const isNumber = function(num) {
-    if (num === null ) {
-    num 
-  } else if (num === '') {
-    num 
-  } else if (num.match(/[А-яЁё]/)) {
-    num
-  }
-  
-  return !isNaN(parseFloat(num)) && isFinite(num) 
+  return !isNaN(parseFloat(num)) && isFinite(num)
 }  
-
-
-const makeNumber = function (i) {
-  if (typeof i === 'string') {
-    i = +i
-  } else {
-    i = i
-  }
-  return i
-}
 
 const asking = function () {
   title = prompt('Как называется Ваш проект?', 'Калькулятор вёрстки')
@@ -46,17 +22,8 @@ const asking = function () {
   do {
     screenPrice = prompt('Сколько будет стоить данная работа?', 10000)
   }  while (!isNumber(screenPrice))
-  console.log(screenPrice)
-  // while (!isNumber(screenPrice)) (
-  //   screenPrice =  prompt('Сколько будет стоить данная работа?')
-  // )
+  screenPrice = +screenPrice
   adaptive = confirm('Нужен ли адаптив на сайте?')
-
-  if (typeof screenPrice === 'string') {
-    screenPrice = +screenPrice
-  } else {
-    screenPrice = +screenPrice
-  }
 }
 
 const getAllServicePrices = function () {
@@ -64,7 +31,6 @@ const getAllServicePrices = function () {
   let sumNum = 0
 
   for (let i = 0; i < 2; i++) {
-    
     if (i === 0) {
       service1 = prompt('Какой дополнительный тип услуги нужен?', 'Форма')
     } else if (i === 1) {
@@ -74,11 +40,10 @@ const getAllServicePrices = function () {
       while (!isNumber(sumStr)) {
         sumStr = prompt('Сколько это будет стоить', 4000)
       }
-        sumNum += makeNumber(sumStr)
-
+      sumNum += +sumStr
   }
 
-  return makeNumber(sumNum)
+  return sumNum
 }
 
 const showTypeOf = function (variable) {
