@@ -31,9 +31,6 @@ const appData = {
     for (let i = 0; i < 2; i++) {
       let price = 0
       let name
-      // do {
-      //   name = prompt('Какой дополнительный тип услуги нужен?', 'Форма')
-      // } while (appData.isNumber(name))
 
       if (i === 0) {
         do {
@@ -59,6 +56,10 @@ const appData = {
     for (let screen of appData.screens) {
       appData.screenPrice += +screen.price
     }
+
+    appData.screenPrice  = appData.screens.reduce(function(sum, item) {
+    return sum + +item.price
+    }, 0)
 
     for (let key in appData.services) {
       appData.allServicePrices += appData.services[key]
