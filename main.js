@@ -12,14 +12,14 @@ const appData = {
   asking: function () {
     do {
       appData.title = prompt('Как называется Ваш проект?', 'Калькулятор вёрстки')
-      } while (appData.isNumber(appData.title))
+      } while (!appData.isString(appData.title))
 
     for (let i = 0; i < 2; i++) {
       let price = 0
       let name
       do {
         name = prompt('Какие типы экранов нужно разработать?')
-      } while (appData.isNumber(name))
+      } while (!appData.isString(name))
       
       do {
         price = prompt('Сколько будет стоить данная работа?', 10000)
@@ -34,13 +34,13 @@ const appData = {
 
       if (i === 0) {
         do {
-          name = 'Вопрос 1: ' + prompt('Какой дополнительный тип услуги нужен?', 'Форма')
-        } while (appData.isNumber(name))
+          name = prompt('Какой дополнительный тип услуги нужен?', 'Форма')
+        } while (!appData.isString(name))
 
       } else if (i === 1) {
         do {
-          name = 'Вопрос 2: ' + prompt('Какой дополнительный тип услуги нужен?', 'Форма')
-        } while (appData.isNumber(name))
+          name = prompt('Какой дополнительный тип услуги нужен?', 'Форма')
+        } while (!appData.isString(name))
       }     
 
         price = prompt('Сколько это будет стоить', 4000)
@@ -67,6 +67,9 @@ const appData = {
   },
   isNumber: function(num) {
     return !isNaN(parseFloat(num)) && isFinite(num)
+  },
+  isString: function(num) {
+    return isNaN(parseFloat(num)) && !isFinite(num)
   },
   showTypeOf: function (variable) {
     console.log(variable, typeof variable)
