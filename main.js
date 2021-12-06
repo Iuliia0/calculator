@@ -31,15 +31,26 @@ const appData = {
     for (let i = 0; i < 2; i++) {
       let price = 0
       let name
-      do {
-        name = prompt('Какой дополнительный тип услуги нужен?', 'Форма')
-      } while (appData.isNumber(name))
+      // do {
+      //   name = prompt('Какой дополнительный тип услуги нужен?', 'Форма')
+      // } while (appData.isNumber(name))
+
+      if (i === 0) {
+        do {
+          name = 'Вопрос 1: ' + prompt('Какой дополнительный тип услуги нужен?', 'Форма')
+        } while (appData.isNumber(name))
+
+      } else if (i === 1) {
+        do {
+          name = 'Вопрос 2: ' + prompt('Какой дополнительный тип услуги нужен?', 'Форма')
+        } while (appData.isNumber(name))
+      }     
 
         price = prompt('Сколько это будет стоить', 4000)
         while (!appData.isNumber(price)) {
           price = prompt('Сколько это будет стоить', 4000)
         }
-      
+        
         appData.services[name] = +price
     }
     appData.adaptive = confirm('Нужен ли адаптив на сайте?')
@@ -89,6 +100,9 @@ const appData = {
       console.log(appData.fullPrice)
       console.log(appData.servicePercentPrice)
       console.log(appData.screens)
+      console.log(appData.services)
+
+      
   },
   start: function() {
     appData.asking(),
