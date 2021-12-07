@@ -46,9 +46,14 @@ const appData = {
         price = prompt('Сколько это будет стоить', 4000)
         while (!appData.isNumber(price)) {
           price = prompt('Сколько это будет стоить', 4000)
+        }        
+        
+        if (name in appData.services === true) {
+          appData.services[name + '_'] = +price
+        } else {
+          appData.services[name] = +price
         }
         
-        appData.services[name] = +price
     }
     appData.adaptive = confirm('Нужен ли адаптив на сайте?')
   },
