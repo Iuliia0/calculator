@@ -89,7 +89,7 @@ const appData = {
 
   },
   addServices: function () {
-    itemsPercent.forEach(function (item) {
+    itemsPercent.forEach((item) => {
       const check = item.querySelector('input[type=checkbox]')
       const label = item.querySelector('label')
       const input = item.querySelector('input[type=text]')
@@ -99,7 +99,7 @@ const appData = {
       }
     })
 
-    itemNumber.forEach(function (item) {
+    itemNumber.forEach((item) => {
       const check = item.querySelector('input[type=checkbox]')
       const label = item.querySelector('label')
       const input = item.querySelector('input[type=text]')
@@ -118,7 +118,7 @@ const appData = {
       appData.screenPrice += +screen.price
     }
 
-    appData.screenPrice  = appData.screens.reduce(function(sum, item) {
+    appData.screenPrice  = appData.screens.reduce((sum, item) => {
     return sum + +item.price
     }, 0)
 
