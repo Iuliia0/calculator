@@ -55,9 +55,11 @@ const appData = {
 
     buttonPlus.addEventListener('click', appData.addScreenBlock)
 
-    rollbackInput.addEventListener('change', () => {
+    rollbackInput.addEventListener('input', () => {
       rollbackPercent.textContent = rollbackInput.value + '%'
       appData.rollback = rollbackInput.value
+      appData.servicePricesPercent = appData.fullPrice - (appData.fullPrice * (appData.rollback/100))
+      totalItemRollback.value = appData.servicePricesPercent
     })
   },
   addTitle: function() {
@@ -66,7 +68,7 @@ const appData = {
 
   addScreens: function() {
     screens = document.querySelectorAll('.screen')
-    screens.forEach(function(screen, index) {
+    screens.forEach((screen, index) => {
       appData.count++
       const select = screen.querySelector('select')
       const input = screen.querySelector('input')
