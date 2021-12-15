@@ -19,9 +19,9 @@ const totalItemRollback = totalItems[4]
 
 let screens = document.querySelectorAll('.screen')
 
-  const cms = document.querySelector('.cms')
-  const cmsInput = cms.querySelector('#cms-open') // crhsnq блок с select
-  const cmsSelectBlock = cms.querySelector('.hidden-cms-variants')
+const cms = document.querySelector('.cms')
+const cmsInput = cms.querySelector('#cms-open')
+const cmsSelectBlock = cms.querySelector('.hidden-cms-variants')
 
 const appData = {
   rollback: 0,
@@ -87,13 +87,21 @@ const appData = {
       })
   },
   reset() {
+    const input = cmsSelectBlock.querySelector('.main-controls__input')
     buttonStart.style.display = 'flex'
     buttonDump.style.display = 'none'
+    input.style.display = 'none'
+    cmsSelectBlock.style.display = 'none'
+    document.querySelectorAll('input[type="checkbox"]').forEach((item) => {
+      item.checked = false
+    })
 
     screens = document.querySelectorAll('.screen')
     screens.forEach((screen) => {
       screen.querySelector('select').disabled = false;
       screen.querySelector('input').disabled = false;
+      screen.querySelector('input').value = 0;
+
       })
 
     const listItems = document.querySelectorAll('.total-input')
