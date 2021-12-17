@@ -245,7 +245,8 @@ const appData = {
     })
 
     this.fullPrice =  this.screenPrice + this.servicePricesPercent + this.servicePricesNumber + this.cmsCount
-    this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback/100))
+    this.servicePercentPrice = Math.floor(this.fullPrice - (this.fullPrice * (this.rollback/100)))
+
   },
   showTypeOf: function (variable) {
     console.log(variable, typeof variable)
