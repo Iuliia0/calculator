@@ -98,24 +98,44 @@ const appData = {
     })
 
     screens = document.querySelectorAll('.screen')
-    screens.forEach((screen) => {
+    screens.forEach((screen, index) => {
       screen.querySelector('select').disabled = false;
       screen.querySelector('input').disabled = false;
       screen.querySelector('input').value = '';
       screen.querySelector('select')[0].selected = true
+      if (index !== 0) {
+        screen.remove('screen')
+      }
       })
 
-    this.servicePricesPercent = 0
-    this.servicePricesPercent = 0
-    this.servicePricesNumber = 0
     this.servicePercentPrice = 0
     this.fullPrice = 0
     this.rollback = 0
+    this.count = 0
+    this.screenPrice = 0
+    this.screens.length = 0
     rollbackInput.value = 0
     totalItemRollback.value = 0
-    rollbackPercent.textContent = 0 + '%'
+    rollbackPercent.textContent = 0 + '%'    
 
+    for (let key in this.servicesNumber) {
+      this.servicesNumber[key] = 0
+      this.servicePricesNumber = 0
+    }
 
+    for (let key in this.servicesPercent) {
+      this.servicesPercent[key] = 0
+      this.servicePricesPercent = 0
+    }
+    
+    const cmsInput = cmsSelectBlock.querySelector('input')
+    cmsInput.disabled = false
+    cmsInput.value = ''
+
+    const select = cmsSelectBlock.querySelectorAll('select')
+    select.forEach((item) => {
+      item[0].selected = true
+    })
 
     const listItems = document.querySelectorAll('.total-input')
     listItems.forEach((item) => {
@@ -148,27 +168,21 @@ const appData = {
       const select = screen.querySelector('select')
       const input = screen.querySelector('input')
       const selectName = select.options[select.selectedIndex].textContent
-      this.count = +input.value
-
-      this.screens = [{
+      this.count += +input.value
+        this.screens.push({
         id: index,
         name: selectName,
         price: +select.value * +input.value
-      }]
+      })
     })
     
   },
   showResult: function() {
     totalItem.value = this.screenPrice
-// console.log(totalItemOther.value)
-// console.log(this.servicePricesPercent)
-// console.log(this.servicePricesNumber)
-
-    totalItemOther.value = this.servicePricesPercent + this.servicePricesNumber
-    // totalItemOther.value = this.servicesNumber + this.servicesPercent
-
+    totalItemCount.value = this.count
+    totalItemOther.value = this.servicePricesPercent + this.servicePricesNumber + this.cmsCount
     totalItemFullCount.value = this.fullPrice
-
+    totalItemRollback.value = this.servicePercentPrice
   },
   addServices: function () {
     itemsPercent.forEach((item) => {
@@ -193,12 +207,14 @@ const appData = {
 
   },
   addScreenBlock: function() {
+    screens = document.querySelectorAll('.screen')
     const cloneScreen = screens[0].cloneNode(true)
+
     screens[screens.length-1].after(cloneScreen)
   },
   addPrices: function () {  
     for (let screen of this.screens) {
-      this.screenPrice = +screen.price
+      this.screenPrice += +screen.price
     }
     this.screenPrice  = this.screens.reduce((sum, item) => {
     return sum + +item.price
@@ -207,32 +223,29 @@ const appData = {
     for (let key in this.servicesNumber) {
       this.servicePricesNumber += this.servicesNumber[key]
     }    
-    
     for (let key in this.servicesPercent) {
-      this.servicePricesPercent = this.screenPrice * (this.servicesPercent[key]/100)
+      this.servicePricesPercent += this.screenPrice * (this.servicesPercent[key]/100)
     }
     const select = cmsSelectBlock.querySelectorAll('select')
     const input = cmsSelectBlock.querySelector('input')
 
     select.forEach((item) => {
       if (item.value === '50') {
-        this.cmsCount = +item.value
-      } else if (item.value === 'other') {
-        this.cmsCount = +input.value
-      } 
+        this.cmsCount = this.screenPrice * (+item.value /100)
 
-    if (input.value === '' || input.value === '0') {
+      } else if (item.value === 'other') {
+        this.cmsCount = this.screenPrice * (+input.value /100)
+      } else  if (input.value === '' || input.value === '0') {
         input.disabled = true
         cmsInput.checked = false
         cmsSelectBlock.style.display = 'none'
       }
+
+
     })
-    this.fullPrice =  this.screenPrice + this.servicePricesPercent + this.servicePricesNumber + (this.screenPrice + this.servicePricesPercent + this.servicePricesNumber) * (this.cmsCount/100)
+
+    this.fullPrice =  this.screenPrice + this.servicePricesPercent + this.servicePricesNumber + this.cmsCount
     this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback/100))
-    totalItemRollback.value = this.servicePercentPrice
-
-
-    totalItemCount.value = this.count
   },
   showTypeOf: function (variable) {
     console.log(variable, typeof variable)
